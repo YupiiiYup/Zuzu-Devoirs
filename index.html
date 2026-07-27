@@ -2,14 +2,18 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Anti-cache pour forcer le navigateur à récupérer le nouveau mot -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Les pitits devoirs de Zuzu</title>
 
     <!-- ========================================== -->
     <!-- ⚙️ TA ZONE DE CONTRÔLE SECRÈTE ⚙️ -->
     <!-- Change simplement le mot entre les guillemets chaque matin : -->
     <script>
-        const MOT_A_TROUVER = "loooooooooooooooooooong"; 
+        const MOT_A_TROUVER = "testtest"; 
     </script>
     <!-- ========================================== -->
 
@@ -30,10 +34,13 @@
             border-radius: 25px;
             box-shadow: 0 15px 30px rgba(255, 182, 193, 0.4);
             text-align: center;
-            max-width: 450px;
-            width: 90%;
+            /* Permet au cadre de s'élargir automatiquement pour les mots longs sur PC */
+            width: fit-content;
+            min-width: min(400px, 90vw);
+            max-width: 95vw;
             border: 2px solid #ffe4e1;
             position: relative;
+            box-sizing: border-box;
         }
         
         .avatar-img {
@@ -86,13 +93,13 @@
             box-sizing: border-box;
         }
         .reponse-tuile {
-            flex: 1 1 0; /* Se compresse et s'étire uniformément */
-            max-width: 40px; /* Taille maximum sur PC */
+            flex: 0 1 auto; /* Se compresse si besoin, mais ne s'étire pas à l'infini */
+            width: clamp(25px, 8vw, 45px); /* Largeur adaptative */
             aspect-ratio: 1 / 1; /* Garde la forme carrée */
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(12px, 4.5vw, 24px); /* Police adaptative selon l'écran */
+            font-size: clamp(14px, 5vw, 24px); /* Police adaptative */
             font-weight: bold;
             color: #2c3e50;
             border-bottom: 3px solid #ffb6c1;
@@ -325,6 +332,19 @@
                 avatarImage.classList.add('tremble');
             }
         }
+
+        
+        // --- ACTUALISATION AUTOMATIQUE SI LA PAGE EST RESTÉE OUVERTE ---
+        const dateChargementPage = new Date().toDateString();
+        document.addEventListener("visibilitychange", () => {
+            if (document.visibilityState === "visible") {
+                const dateActuelle = new Date().toDateString();
+                if (dateChargementPage !== dateActuelle) {
+                    window.location.reload(true); // Force le rafraîchissement si on a changé de jour
+                }
+            }
+        });
+        // ---------------------------------------------------------------
 
         function initialiserJeu() {
             motActuel = MOT_A_TROUVER.toUpperCase(); // On s'assure qu'il est en majuscules
