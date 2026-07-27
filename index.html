@@ -266,7 +266,7 @@
     <!-- FENÊTRE MODALE INTÉGRÉE -->
     <div id="modal-indice" class="modal-overlay">
         <div class="modal-content">
-            <h2>Besoin d'aide ? 🦊</h2>
+            <h2>Besoin d'aide ?</h2>
             <p>Veux-tu vraiment un indice ?<br>Cela va effacer ton mot en cours et bloquer la prochaine bonne lettre !</p>
             <div class="modal-actions">
                 <button class="btn-action btn-effacer" onclick="fermerModalIndice()">Annuler</button>
@@ -464,14 +464,14 @@
             }).join('');
             
             if (historiqueReponse.length < motActuel.length) {
-                messageBox.innerText = "Il manque des lettres ! 🧐";
+                messageBox.innerText = "Il manque des lettres, rooh !";
                 messageBox.className = "message error";
                 changerHumeurZuzu('triste');
                 return;
             }
             
             if (motSaisi === motActuel) {
-                messageBox.innerText = "Bravo Zuzu ! 🎉 C'est le bon mot !";
+                messageBox.innerText = "Bravo super Zuzu ! 🎉 C'est le bon mot !";
                 messageBox.className = "message success";
                 changerHumeurZuzu('joyeux');
                 document.getElementById('btn-preuve').style.display = 'block';
@@ -480,7 +480,7 @@
                 document.querySelector('.btn-valider').style.display = 'none';
                 document.getElementById('zone-bazar').style.display = 'none';
             } else {
-                messageBox.innerText = "Oups, ce n'est pas ça ! Essaie encore. 😅";
+                messageBox.innerText = "Oups, ce n'est pas ça ! On se réveille hop hop";
                 messageBox.className = "message error";
                 changerHumeurZuzu('triste');
             }
